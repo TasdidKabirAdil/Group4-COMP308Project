@@ -9,9 +9,8 @@ export default defineConfig({
       name: 'authApp',
       filename: 'remoteEntry.js',
       exposes: {
-        // './Login': './src/components/Login.jsx',
-        // './Register': './src/components/Register.jsx',
-        './App' : './src/App.jsx'
+        './Login': './src/components/Login.jsx',
+        './Register': './src/components/Register.jsx',
       },
       shared: ['react', 'react-dom', 'react-router-dom', '@apollo/client', 'graphql'],
     }),
