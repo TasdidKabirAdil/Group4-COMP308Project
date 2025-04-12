@@ -38,7 +38,13 @@ function Login() {
                 alert('Login Successful')
                 setEmail('')
                 setPassword('')
-                // localStorage.getItem('role') === 'Nurse' ? navigate('/nurse') : navigate('/patient')
+                if (data.login.user.role === 'Patient') {
+                    navigate('/patient');
+                } else if (data.login.user.role === 'Nurse') {                    
+                        alert('Nurse dashboard not yet implemented.');
+                } else {
+                    navigate('/');
+                }                                
             }
         } catch (error) {
             console.error("Unexpected Error:", error);
