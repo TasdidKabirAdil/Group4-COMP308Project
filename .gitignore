@@ -134,3 +134,8 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+backend/ai_service/venv/
+
+**/node_modules
+**/**/node_modules
