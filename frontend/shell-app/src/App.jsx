@@ -5,6 +5,7 @@ import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import Login from 'authApp/Login';
 import Register from 'authApp/Register';
 import PatientDashboard from 'patientApp/PatientDashboard';
+import NurseDashboard from 'nurseApp/NurseDashboard'
 
 
 const authClient = new ApolloClient({
@@ -15,6 +16,12 @@ const authClient = new ApolloClient({
 
 const patientClient = new ApolloClient({
   uri: 'http://localhost:4002/graphql',
+  credentials: 'include',
+  cache: new InMemoryCache(),
+});
+
+const nurseClient = new ApolloClient({
+  uri: 'http://localhost:4003/graphql',
   credentials: 'include',
   cache: new InMemoryCache(),
 });
@@ -66,6 +73,14 @@ function App() {
             </ProtectedRoute>
           }
          />
+         <Route
+          path="/nurse"
+          element={
+            <ApolloProvider client={nurseClient}>
+              <NurseDashboard />
+            </ApolloProvider>
+          }
+        />
       </Routes>
     </Router>
   );

@@ -1,8 +1,19 @@
-const vitalSignTypeDefs = `#graphql
-    type MotivationalTip {
+const typeDefs = `#graphql
+    scalar Date
+
+    type User {
+        id: ID!
+        username: String!
+        email: String!
+        password: String!
+        role: String!
+        createdAt: String!
+    }
+
+    type DailyTip {
         id: ID!
         message: String!
-        createdAt: String
+        date: String!
     }
 
     type VitalSign {
@@ -17,13 +28,23 @@ const vitalSignTypeDefs = `#graphql
         createdAt: String
     }
 
+    type EmergencyAlert {
+        id: ID!
+        patientId: ID!
+        message: String
+        timestamp: Date
+    }
+
     type Query {
         userVitalSigns(
             userId: ID!
             enteredBy: ID!
         ) : [VitalSign!]
 
-        dailyTip: MotivationalTip!
+        users: [User]
+        user(id: ID!): User
+
+        emergencyAlerts: [EmergencyAlert]
     }
 
     type Mutation {
@@ -36,7 +57,11 @@ const vitalSignTypeDefs = `#graphql
             respiratoryRate: Int!
             weight: Float!
         ) : VitalSign
+
+        sendDailyTip: DailyTip!
+
+        updateEmergencyAlerts(id: ID! message: String!): EmergencyAlert #emergency alert response from nurse
     }
 `
 
-module.exports = vitalSignTypeDefs;
+module.exports = typeDefs;

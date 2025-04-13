@@ -4,8 +4,8 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 
 const connectDB = require('../configs/mongoose')
-const typeDefs = require('./graphql/typeDefs')
-const resolvers = require('./graphql/resolvers')
+const typeDefs = require('./graphql/nurse.typeDefs')
+const resolvers = require('./graphql/nurse.resolvers')
 
 const startServer = async() => {
     const app = express()

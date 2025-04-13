@@ -1,6 +1,7 @@
 const DailyInfo = require('../models/DailyInfo');
 const SymptomChecklist = require('../models/SymptomChecklist');
 const EmergencyAlert = require('../models/EmergencyAlert');
+const DailyTip = require('../../nurse-microservice/models/dailyTip')
 
 const resolvers = {
     Query: {
@@ -27,7 +28,12 @@ const resolvers = {
                 console.error('Error fetching emergency alerts:', error);
                 throw new Error('Failed to fetch emergency alerts');
             }
-        }
+        },
+        getTodayTip: async () => {
+            const today = new Date().toISOString().split("T")[0];
+            return await DailyTip.findOne({ date: today });
+          }
+          
     },
     Mutation: {
         createDailyInfo: async (_, { input }) => {
