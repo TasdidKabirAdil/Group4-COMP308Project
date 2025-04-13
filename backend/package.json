@@ -5,7 +5,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev:auth": "nodemon auth-microservice/index.js",
-    "dev": "concurrently \"npm run dev:auth\""
+    "dev:nurse": "nodemon nurse-microservice/index.js",
+    "dev": "concurrently \"npm run dev:auth\" \"npm run dev:nurse\""
   },
   "keywords": [],
   "author": "",
