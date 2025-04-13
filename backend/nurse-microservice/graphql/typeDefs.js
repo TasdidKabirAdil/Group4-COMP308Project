@@ -1,5 +1,11 @@
-const vitalSignsTypeDefs = `#graphql
-    type VitalSigns {
+const vitalSignTypeDefs = `#graphql
+    type MotivationalTip {
+        id: ID!
+        message: String!
+        createdAt: String
+    }
+
+    type VitalSign {
         id: ID!
         userId: ID!
         enteredBy: ID!
@@ -15,7 +21,9 @@ const vitalSignsTypeDefs = `#graphql
         userVitalSigns(
             userId: ID!
             enteredBy: ID!
-        ) : [VitalSigns!]
+        ) : [VitalSign!]
+
+        dailyTip: MotivationalTip!
     }
 
     type Mutation {
@@ -27,8 +35,8 @@ const vitalSignsTypeDefs = `#graphql
             bloodPressure: String!
             respiratoryRate: Int!
             weight: Float!
-        ) : VitalSigns
+        ) : VitalSign
     }
 `
 
-module.exports = vitalSignsTypeDefs;
+module.exports = vitalSignTypeDefs;

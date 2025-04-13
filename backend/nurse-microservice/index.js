@@ -4,8 +4,8 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 
 const connectDB = require('../configs/mongoose')
-const typeDefs = require('./graphql/typeDefs/vitalSigns.typeDefs')
-const resolvers = require('./graphql/resolvers/vitalSigns.resolvers')
+const typeDefs = require('./graphql/typeDefs')
+const resolvers = require('./graphql/resolvers')
 
 const startServer = async() => {
     const app = express()
@@ -33,7 +33,7 @@ const startServer = async() => {
     await server.start()
     server.applyMiddleware({ app, path: '/graphql', cors: false })
 
-    const PORT = 4002
+    const PORT = 4003
 
     app.listen(PORT, () => {
         console.log(`🚀 Auth service running at http://localhost:${PORT}${server.graphqlPath}`)
