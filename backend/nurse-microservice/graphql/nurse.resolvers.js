@@ -6,13 +6,9 @@ const EmergencyAlert = require('../../patient-microservice/models/EmergencyAlert
 
 const resolvers = {
     Query: {
-        userVitalSigns: async (_, { userId, enteredBy }) => {
+        userVitalSigns: async (_, { userId }) => {
             try {  
-                const entryUser = await User.findById(enteredBy)
-                if(entryUser.role !== 'Nurse') {
-                    throw new Error('Only nurses can access this data')
-                }
-                const vitalSigns = await VitalSign.find({userId, enteredBy})
+                const vitalSigns = await VitalSign.find({userId})
                 return vitalSigns.map((vitalSign) => ({
                     id: vitalSign._id.toString(),
                     ...vitalSign.toObject()

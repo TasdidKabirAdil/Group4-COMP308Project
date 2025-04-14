@@ -21,7 +21,7 @@ const resolvers = {
                 throw new Error('Failed to fetch symptom checklists');
             }
         },
-         getEmergencyAlerts: async (_, { patientId }) => {
+        getEmergencyAlerts: async (_, { patientId }) => {
             try {
                 return await EmergencyAlert.find({ patientId }).sort({ timestamp: -1 });
             } catch (error) {
@@ -32,8 +32,8 @@ const resolvers = {
         getTodayTip: async () => {
             const today = new Date().toISOString().split("T")[0];
             return await DailyTip.findOne({ date: today });
-          }
-          
+        }
+
     },
     Mutation: {
         createDailyInfo: async (_, { input }) => {
@@ -58,14 +58,14 @@ const resolvers = {
             }
         },
         createEmergencyAlert: async (_, { patientId }) => {
-             try {
+            try {
                 const newAlert = new EmergencyAlert({ patientId });
                 await newAlert.save();
                 return newAlert;
-             } catch (error) {
+            } catch (error) {
                 console.error('Error creating emergency alert:', error);
                 throw new Error('Failed to create emergency alert');
-             }
+            }
         }
     }
 };

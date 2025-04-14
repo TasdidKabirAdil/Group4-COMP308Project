@@ -38,7 +38,6 @@ const typeDefs = `#graphql
     type Query {
         userVitalSigns(
             userId: ID!
-            enteredBy: ID!
         ) : [VitalSign!]
 
         users: [User]

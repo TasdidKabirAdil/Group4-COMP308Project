@@ -10,6 +10,8 @@ export default defineConfig({
       filename: 'remoteEntry.js',
       exposes: {
         './NurseDashboard': './src/components/NurseDashboard.jsx',
+        './VitalsForm': './src/components/VitalsForm.jsx',
+        './PatientDetails': './src/components/PatientDetails.jsx',
       },
       shared: ['react', 'react-dom', 'react-router-dom', '@apollo/client', 'graphql'],
     }),
