@@ -58,6 +58,7 @@ function NurseDashboard() {
         try {
             const { data } = await sendDailyTip()
             alert(`Daily Tip sent: ${data.sendDailyTip.message}`)
+            window.location.reload()
         } catch (error) {
             console.error("Error sending tip", error)
             alert("Failed to send daily tip")

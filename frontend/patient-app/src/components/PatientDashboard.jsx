@@ -26,7 +26,11 @@ function PatientDashboard() {
         <Container className="mt-4">
             <h1 className="mb-4 text-center">Patient Dashboard</h1>
             <h2>Daily Tip</h2>
-            <h3>{data?.getTodayTip.message}</h3>
+            {data?.getTodayTip ? (
+                <h3>{data.getTodayTip.message}</h3>
+            ) : (
+                <p>No daily tip for today</p>
+            )}
             <Row>
                 <Col md={6} className="mb-4">
                     <Card>
