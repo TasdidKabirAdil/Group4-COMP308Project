@@ -58,6 +58,7 @@ function NurseDashboard() {
         try {
             const { data } = await sendDailyTip()
             alert(`Daily Tip sent: ${data.sendDailyTip.message}`)
+            window.location.reload()
         } catch (error) {
             console.error("Error sending tip", error)
             alert("Failed to send daily tip")
@@ -153,7 +154,7 @@ function NurseDashboard() {
                                             <td>{alert.message}</td>
                                             <td>{new Date(alert.timestamp).toLocaleString()}</td>
                                             <td>
-                                                {respondedAlerts.includes(alert.id) ? (
+                                                {respondedAlerts.includes(alert.id) || alert.message === "Help is on the way" ? (
                                                     <Button variant="secondary" disabled>
                                                         Responded
                                                     </Button>
