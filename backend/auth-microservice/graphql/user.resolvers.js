@@ -3,36 +3,36 @@ const jwt = require('jsonwebtoken')
 const User = require('../models/user')
 
 const resolvers = {
-    Query: {
-        users: async () => {
-            try{
-                const users = await User.find()
-                return users.map((user) => ({
-                    id: user._id.toString(),
-                    ...user.toObject()
-                }))
-            } catch (error) {
-                console.error('Error fetching users', error)
-                throw new Error('Failed to fetch users')
-            }
-        },
+    // Query: {
+    //     users: async () => {
+    //         try{
+    //             const users = await User.find()
+    //             return users.map((user) => ({
+    //                 id: user._id.toString(),
+    //                 ...user.toObject()
+    //             }))
+    //         } catch (error) {
+    //             console.error('Error fetching users', error)
+    //             throw new Error('Failed to fetch users')
+    //         }
+    //     },
 
-        user: async(_, {id}) => {
-            try {
-                const user = await User.findById(id)
-                if(!user) {
-                    throw new Error(`User with ${id} doesn't exist`)
-                }
-                return {
-                    id: user._id.toString(),
-                    ...user.toObject()
-                }
-            } catch (error) {
-                console.error(`Error fetching user with ${id}`, error)
-                throw new Error('Failed to fetch user')
-            }
-        }
-    },
+    //     user: async(_, {id}) => {
+    //         try {
+    //             const user = await User.findById(id)
+    //             if(!user) {
+    //                 throw new Error(`User with ${id} doesn't exist`)
+    //             }
+    //             return {
+    //                 id: user._id.toString(),
+    //                 ...user.toObject()
+    //             }
+    //         } catch (error) {
+    //             console.error(`Error fetching user with ${id}`, error)
+    //             throw new Error('Failed to fetch user')
+    //         }
+    //     }
+    // },
 
     Mutation: {
         login: async(_, { email, password }) => {

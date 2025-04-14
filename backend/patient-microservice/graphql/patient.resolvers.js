@@ -1,6 +1,7 @@
 const DailyInfo = require('../models/DailyInfo');
 const SymptomChecklist = require('../models/SymptomChecklist');
 const EmergencyAlert = require('../models/EmergencyAlert');
+const DailyTip = require('../../nurse-microservice/models/dailyTip')
 
 const resolvers = {
     Query: {
@@ -20,14 +21,19 @@ const resolvers = {
                 throw new Error('Failed to fetch symptom checklists');
             }
         },
-         getEmergencyAlerts: async (_, { patientId }) => {
+        getEmergencyAlerts: async (_, { patientId }) => {
             try {
                 return await EmergencyAlert.find({ patientId }).sort({ timestamp: -1 });
             } catch (error) {
                 console.error('Error fetching emergency alerts:', error);
                 throw new Error('Failed to fetch emergency alerts');
             }
+        },
+        getTodayTip: async () => {
+            const today = new Date().toISOString().split("T")[0];
+            return await DailyTip.findOne({ date: today });
         }
+
     },
     Mutation: {
         createDailyInfo: async (_, { input }) => {
@@ -52,14 +58,14 @@ const resolvers = {
             }
         },
         createEmergencyAlert: async (_, { patientId }) => {
-             try {
+            try {
                 const newAlert = new EmergencyAlert({ patientId });
                 await newAlert.save();
                 return newAlert;
-             } catch (error) {
+            } catch (error) {
                 console.error('Error creating emergency alert:', error);
                 throw new Error('Failed to create emergency alert');
-             }
+            }
         }
     }
 };

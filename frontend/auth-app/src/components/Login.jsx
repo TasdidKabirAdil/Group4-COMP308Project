@@ -41,7 +41,7 @@ function Login() {
                 if (data.login.user.role === 'Patient') {
                     navigate('/patient');
                 } else if (data.login.user.role === 'Nurse') {                    
-                        alert('Nurse dashboard not yet implemented.');
+                        navigate('/nurse')
                 } else {
                     navigate('/');
                 }                                

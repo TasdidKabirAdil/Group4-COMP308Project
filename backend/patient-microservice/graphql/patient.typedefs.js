@@ -27,6 +27,12 @@ const typeDefs = `#graphql
         timestamp: Date
     }
 
+    type DailyTip {
+        id: ID!
+        message: String!
+        date: String!
+    }
+
     input DailyInfoInput {
         patientId: ID!
         pulseRate: Float
@@ -46,6 +52,7 @@ const typeDefs = `#graphql
         getDailyInfo(patientId: ID!): [DailyInfo]
         getSymptomChecklists(patientId: ID!): [SymptomChecklist]
         getEmergencyAlerts(patientId: ID!): [EmergencyAlert]
+        getTodayTip: DailyTip
     }
 
     type Mutation {

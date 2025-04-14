@@ -3,10 +3,20 @@ import DailyInfoForm from './DailyInfoForm';
 import SymptomChecklist from './SymptomChecklist';
 import EmergencyAlert from './EmergencyAlert';
 import { Container, Row, Col, Card } from 'react-bootstrap';
+import { gql, useQuery } from '@apollo/client'
 import 'bootstrap/dist/css/bootstrap.min.css';
+
+const GET_DAILY_TIP = gql`
+    query GetTodayTip {
+        getTodayTip {
+            message
+        }
+    }
+`
 
 function PatientDashboard() {
     const patientId = localStorage.getItem('id');
+    const { data } = useQuery(GET_DAILY_TIP)
 
     if (!patientId) {
         return <p>Please log in.</p>;
@@ -15,6 +25,8 @@ function PatientDashboard() {
     return (
         <Container className="mt-4">
             <h1 className="mb-4 text-center">Patient Dashboard</h1>
+            <h2>Daily Tip</h2>
+            <h3>{data?.getTodayTip.message}</h3>
             <Row>
                 <Col md={6} className="mb-4">
                     <Card>

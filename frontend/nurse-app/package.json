@@ -1,21 +1,23 @@
 {
-  "name": "shell-app",
+  "name": "nurse-app",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "concurrently \"vite --port=3000 --strictPort\" \"cd ../auth-app && npm run start-mf\" \"cd ../patient-app && npm run start-mf\" \"cd ../nurse-app && npm run start-mf\"",
+    "dev": "vite  --port=3003 --strictPort",
     "build": "vite build",
     "lint": "eslint src --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview --port=3000 --strictPort"
+    "preview": "vite preview --port 3003 --strictPort",
+    "start-mf": "npm run build && npm run preview",
+    "deploy": "npm run build && npm run preview",
+    "watch-deploy": "concurrently \"npm run preview\" \"chokidar 'src/**/*' -c 'npm run build'\""
   },
   "dependencies": {
     "@apollo/client": "^3.9.5",
     "@originjs/vite-plugin-federation": "^1.3.5",
-    "bootstrap": "^5.3.5",
-    "graphql": "^16.8.1",
+    "bootstrap": "^5.3.3",
     "react": "^19.0.0",
-    "react-bootstrap": "^2.10.9",
+    "react-bootstrap": "^2.10.1",
     "react-dom": "^19.0.0",
     "react-router-dom": "^7.4.1"
   },
@@ -24,6 +26,7 @@
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
     "@vitejs/plugin-react": "^4.3.4",
+    "chokidar-cli": "^3.0.0",
     "concurrently": "^9.1.2",
     "eslint": "^9.21.0",
     "eslint-plugin-react-hooks": "^5.1.0",
