@@ -153,7 +153,7 @@ function NurseDashboard() {
                                             <td>{alert.message}</td>
                                             <td>{new Date(alert.timestamp).toLocaleString()}</td>
                                             <td>
-                                                {respondedAlerts.includes(alert.id) ? (
+                                                {respondedAlerts.includes(alert.id) || alert.message === "Help is on the way" ? (
                                                     <Button variant="secondary" disabled>
                                                         Responded
                                                     </Button>
