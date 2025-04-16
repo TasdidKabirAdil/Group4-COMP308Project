@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 const MotivationalTip = require('./models/motivationalTip');
 
-// Replace with your actual MongoDB URI
 const MONGO_URI = 'mongodb://localhost:27017/health-monitor-db'; 
 
 const tips = [
