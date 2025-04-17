@@ -5,6 +5,7 @@ import EmergencyAlert from './EmergencyAlert';
 import { Container, Row, Col, Card } from 'react-bootstrap';
 import { gql, useQuery } from '@apollo/client'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import PredictionHistory from '../components/PredictionHistory';
 
 const GET_DAILY_TIP = gql`
     query GetTodayTip {
@@ -45,6 +46,14 @@ function PatientDashboard() {
                         <Card.Body>
                             <Card.Title>Symptom Checklist</Card.Title>
                             <SymptomChecklist patientId={patientId} />
+                        </Card.Body>
+                    </Card>
+                </Col>
+                <Col md={20} className="mb-4">
+                     <Card>
+                        <Card.Body>
+                            <Card.Title>Predictions</Card.Title>
+                            <PredictionHistory patientId={patientId} />
                         </Card.Body>
                     </Card>
                 </Col>

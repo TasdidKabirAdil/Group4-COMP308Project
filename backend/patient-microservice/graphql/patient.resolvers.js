@@ -49,14 +49,26 @@ const resolvers = {
         },
         submitSymptomChecklist: async (_, { input }) => {
             try {
-                const newSymptomChecklist = new SymptomChecklist(input);
+                const { patientId, symptoms, prediction } = input;
+        
+                const newSymptomChecklist = new SymptomChecklist({
+                    patientId,
+                    symptoms,
+                    submissionDate: new Date(),
+                    prediction: prediction ? {
+                        predictedConditions: prediction.predictedConditions,
+                        recommendConsultation: prediction.recommendConsultation
+                    } : undefined
+                });
+        
                 await newSymptomChecklist.save();
                 return newSymptomChecklist;
             } catch (error) {
                 console.error('Error submitting symptom checklist:', error);
                 throw new Error('Failed to submit symptom checklist');
             }
-        },
+        }
+        ,
         createEmergencyAlert: async (_, { patientId }) => {
             try {
                 const newAlert = new EmergencyAlert({ patientId });
@@ -66,7 +78,17 @@ const resolvers = {
                 console.error('Error creating emergency alert:', error);
                 throw new Error('Failed to create emergency alert');
             }
+        },
+        deleteSymptomChecklist: async (_, { id }) => {
+            try {
+                await SymptomChecklist.findByIdAndDelete(id);
+                return true;
+            } catch (error) {
+                console.error('Error deleting symptom checklist:', error);
+                throw new Error('Failed to delete symptom checklist');
+            }
         }
+        
     }
 };
 

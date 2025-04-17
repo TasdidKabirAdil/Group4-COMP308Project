@@ -18,6 +18,12 @@ const typeDefs = `#graphql
         patientId: ID!
         symptoms: [String]
         submissionDate: Date
+        prediction: PredictionResult
+    }
+
+    type PredictionResult {
+        predictedConditions: [String!]!
+        recommendConsultation: Boolean!
     }
 
     type EmergencyAlert {
@@ -46,6 +52,12 @@ const typeDefs = `#graphql
     input SymptomChecklistInput {
         patientId: ID!
         symptoms: [String]!
+        prediction: PredictionInput
+    }
+
+    input PredictionInput {
+        predictedConditions: [String!]!
+        recommendConsultation: Boolean!
     }
 
     type Query {
@@ -59,6 +71,7 @@ const typeDefs = `#graphql
         createDailyInfo(input: DailyInfoInput!): DailyInfo
         submitSymptomChecklist(input: SymptomChecklistInput!): SymptomChecklist
         createEmergencyAlert(patientId: ID!): EmergencyAlert
+        deleteSymptomChecklist(id: ID!): Boolean!
     }
 `;
 

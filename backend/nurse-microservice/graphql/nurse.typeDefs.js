@@ -44,6 +44,7 @@ const typeDefs = `#graphql
         user(id: ID!): User
 
         emergencyAlerts: [EmergencyAlert]
+        getTodayTip: DailyTip
     }
 
     type Mutation {

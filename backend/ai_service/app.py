@@ -5,10 +5,13 @@ import os
 import tensorflow as tf
 from tensorflow import keras 
 import json 
+from flask_cors import CORS
+
 
 from utils.preprocessing import preprocess_symptoms
 
 app = Flask(__name__)
+CORS(app)
 
 MODEL_DIR = 'models'
 MODEL_FILENAME = 'symptom_disease_model.h5' 

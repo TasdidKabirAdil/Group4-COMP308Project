@@ -60,6 +60,20 @@ const resolvers = {
                 throw new Error('Failed to fetch emergency alerts');
             }
         },
+        getTodayTip: async () => {
+            const today = new Date().toISOString().split("T")[0];
+            const tip = await DailyTip.findOne({ date: today });
+          
+            if (!tip) {
+              throw new Error("No daily motivational tip set for today.");
+            }
+          
+            return {
+              id: tip._id.toString(),
+              ...tip.toObject()
+            };
+          }
+          
     },
 
     Mutation: {
