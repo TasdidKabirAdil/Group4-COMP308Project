@@ -36,7 +36,7 @@ const startServer = async() => {
     const PORT = 4003
 
     app.listen(PORT, () => {
-        console.log(`🚀 Auth service running at http://localhost:${PORT}${server.graphqlPath}`)
+        console.log(`🚀 Nurse service running at http://localhost:${PORT}${server.graphqlPath}`)
     })
 }
 
