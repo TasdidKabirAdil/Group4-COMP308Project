@@ -1,0 +1,13 @@
+{
+  "name": "group4-comp308project",
+  "version": "1.0.0",
+  "description": "A modern full-stack web application built to support **nurse practitioners** and **patients** during post-hospital care. This app enables health monitoring, emergency alerts, and symptom tracking — all while leveraging modern web frameworks, GraphQL APIs, and microservice architecture.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "concurrently \"cd frontend/shell-app && npm run dev\" \"cd backend && npm run dev\" \"cd backend/ai_service && python app.py"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
