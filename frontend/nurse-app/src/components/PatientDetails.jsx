@@ -38,41 +38,40 @@ function PatientDetails() {
     if (error) return <p>Error: {error.message}</p>
 
     return (
-        <Container className="mt-4">
+        <Container className="mt-5">
             <div className="d-flex justify-content-between align-items-center mb-4">
                 <h2>Patient Details</h2>
                 <Button variant="secondary" onClick={() => navigate('/nurse')}>
-                    Go Back
+                    ⬅ Go Back
                 </Button>
             </div>
 
-            <h4 className="mb-4">Previous Clinical Visits</h4>
+            <h4 className="mb-4 text-center">📋 Previous Clinical Visits</h4>
 
             {patientData.userVitalSigns.length > 0 ? (
                 <Row xs={1} md={2} lg={2} className="g-4">
                     {patientData.userVitalSigns.map((vitalSign) => (
                         <Col key={vitalSign.id}>
-                            <Card>
-                                <Card.Header>
-                                    <strong>Visit Date:</strong>{' '}
-                                    {new Date(parseInt(vitalSign.createdAt)).toLocaleDateString()}
+                            <Card className="h-100 shadow-sm border-0" style={{ transition: '0.3s', backgroundColor: 'rgba(0, 76, 255, 0)', color: 'white' }}>
+                                <Card.Header className="fw-bold">
+                                    Visit Date: {new Date(parseInt(vitalSign.createdAt)).toLocaleDateString()}
                                 </Card.Header>
                                 <Card.Body>
-                                    <Card.Title>{userData?.user.username}</Card.Title>
-                                    <Card.Text>
-                                        <strong>Temperature:</strong> {vitalSign.temperature} °C <br />
-                                        <strong>Heart Rate:</strong> {vitalSign.heartRate} bpm <br />
-                                        <strong>Blood Pressure:</strong> {vitalSign.bloodPressure} mmHg <br />
-                                        <strong>Respiratory Rate:</strong> {vitalSign.respiratoryRate} breaths/min <br />
-                                        <strong>Weight:</strong> {vitalSign.weight} kg
-                                    </Card.Text>
+                                    <Card.Title className="mb-3">{userData?.user.username}</Card.Title>
+                                    <ul className="list-unstyled">
+                                        <li><strong>🌡 Temperature:</strong> {vitalSign.temperature} °C</li>
+                                        <li><strong>💓 Heart Rate:</strong> {vitalSign.heartRate} bpm</li>
+                                        <li><strong>🩸 Blood Pressure:</strong> {vitalSign.bloodPressure} mmHg</li>
+                                        <li><strong>🌬 Respiratory Rate:</strong> {vitalSign.respiratoryRate} breaths/min</li>
+                                        <li><strong>⚖️ Weight:</strong> {vitalSign.weight} kg</li>
+                                    </ul>
                                 </Card.Body>
                             </Card>
                         </Col>
                     ))}
                 </Row>
             ) : (
-                <p>No clinical visit data found</p>
+                <p className="text-muted text-center mt-5">No clinical visit data found</p>
             )}
         </Container>
     );

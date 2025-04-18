@@ -7,15 +7,13 @@ function AppNavbar() {
   const role = localStorage.getItem('role');
 
   const handleLogout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('id');
-    localStorage.removeItem('role');
+    localStorage.clear()
     navigate('/login');
   };
 
   return (
-    <Navbar bg="dark" variant="dark" expand="lg" className="mb-4">
-      <Container>
+    <Navbar variant="dark" expand="lg" className="mb-4" style={{backgroundColor: 'rgb(30, 69, 116)'}}>
+      <Container style={{paddingLeft: '20px', paddingRight: '20px'}}>
         <Navbar.Brand>Healthcare App</Navbar.Brand>
         <Navbar.Toggle aria-controls="navbar-nav" />
         <Navbar.Collapse id="navbar-nav">
@@ -30,7 +28,7 @@ function AppNavbar() {
               <Nav.Link onClick={() => navigate('/patient')}>Dashboard</Nav.Link>
             )}
           </Nav>
-          <Button variant="outline-light" onClick={handleLogout}>
+          <Button variant="outline-danger" onClick={handleLogout}>
             Logout
           </Button>
         </Navbar.Collapse>

@@ -17,7 +17,6 @@ This application was developed to:
 - Use deep learning to intelligently analyze patient symptoms
 
 > ✅ Developed in a team of 4–5 students as part of our COMP308 course  
-> ✅ Scheduled for presentation and demo in **Week 14**
 
 ---
 
@@ -34,7 +33,6 @@ This application was developed to:
   - Weight (kg)
 - View history of clinical visits
 - Send daily motivational tips to patients
-- Use a deep learning microservice to analyze symptom checklists and suggest medical action
 
 ### 🧍 Patient Features
 
@@ -43,6 +41,21 @@ This application was developed to:
 - Submit emergency alerts to healthcare providers
 - Complete symptom checklists (e.g., COVID, RSV)
 - View motivational tips sent by nurses
+
+### 🧱 AI-Powered Disease Prediction
+
+Our application features a custom-trained deep learning model that intelligently analyzes symptom checklists submitted by patients and predicts possible diseases.
+
+- 🌎 Dataset: Extracted from open medical sources and cleaned
+- 🤖 Model: Multi-layer Perceptron (MLP) built using TensorFlow/Keras
+- 🔧 Architecture:
+- 256 ➞ 128 ➞ N-output (number of diseases)
+- Trained using binary crossentropy + AUC evaluation
+- 🔬 Input: Symptom vectors generated from 400+ possible symptom indicators
+- 🔍 Output: Sorted list of potential diseases + consultation advice
+- 🚀 Deployed via Flask microservice, consumed by the patient microfrontend
+
+✨ This feature helps enhance clinical judgment and empowers patients with awareness of their possible conditions.
 
 ---
 
@@ -72,12 +85,13 @@ This application was developed to:
 
     Backend
     ```
-    cd backend
-    npm install
+    cd backend/ai_services && pip install -r requirements.txt
+    cd backend && npm install
 
     ```
     Frontend
     ```
+    cd frontend && npm install
     cd frontend/shell-app && npm install
     cd frontend/auth-app && npm install
     cd frontend/patient-app && npm install
@@ -85,6 +99,5 @@ This application was developed to:
     ```
 3. Start services:
     ```
-    cd backend && npm run dev
-    cd frontend/shell-app && npm run dev
+    npm run dev
     ```

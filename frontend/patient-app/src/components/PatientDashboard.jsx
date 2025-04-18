@@ -26,15 +26,24 @@ function PatientDashboard() {
     return (
         <Container className="mt-4">
             <h1 className="mb-4 text-center">Patient Dashboard</h1>
-            <h2>Daily Tip</h2>
-            {data?.getTodayTip ? (
-                <h3>{data.getTodayTip.message}</h3>
-            ) : (
-                <p>No daily tip for today</p>
-            )}
+            <Card className="mx-auto mb-4 shadow" style={{ maxWidth: "600px", background: "#e7f4ff" }}>
+                <Card.Body className="text-center">
+                    <Card.Title className="text-info fs-4 mb-2">
+                        💡 Daily Tip
+                    </Card.Title>
+                    <Card.Text className="text-muted fs-6">
+                        {data?.getTodayTip ? (
+                            <em>{data.getTodayTip.message}</em>
+                        ) : (
+                            <em>No daily tip for today</em>
+                        )}
+                    </Card.Text>
+                </Card.Body>
+            </Card>
+
             <Row>
                 <Col md={6} className="mb-4">
-                    <Card>
+                    <Card className='shadow' style={{backgroundColor: 'rgba(0, 76, 255, 0)', border: 'none', color: 'white'}}>
                         <Card.Body>
                             <Card.Title>Daily Information Entry</Card.Title>
                             <DailyInfoForm patientId={patientId} />
@@ -42,7 +51,7 @@ function PatientDashboard() {
                     </Card>
                 </Col>
                 <Col md={6} className="mb-4">
-                     <Card>
+                    <Card className='shadow' style={{backgroundColor: 'rgba(0, 76, 255, 0)', border: 'none', color: 'white'}}>
                         <Card.Body>
                             <Card.Title>Symptom Checklist</Card.Title>
                             <SymptomChecklist patientId={patientId} />
@@ -50,7 +59,7 @@ function PatientDashboard() {
                     </Card>
                 </Col>
                 <Col md={20} className="mb-4">
-                     <Card>
+                    <Card className='shadow' style={{backgroundColor: 'rgba(0, 76, 255, 0)', border: 'none', color: 'white'}}>
                         <Card.Body>
                             <Card.Title>Predictions</Card.Title>
                             <PredictionHistory patientId={patientId} />
@@ -58,11 +67,11 @@ function PatientDashboard() {
                     </Card>
                 </Col>
             </Row>
-             <Row className="justify-content-center">
-                 <Col md={6}>
+            <Row className="justify-content-center">
+                <Col md={6}>
                     <EmergencyAlert patientId={patientId} />
-                 </Col>
-             </Row>
+                </Col>
+            </Row>
         </Container>
     );
 }

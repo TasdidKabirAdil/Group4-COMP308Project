@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { gql, useMutation, useQuery } from '@apollo/client';
 import { useNavigate } from 'react-router-dom'
-import { Form, Button, Container, Row, Col } from 'react-bootstrap';
+import { Form, Button, Container, Row, Col, Card } from 'react-bootstrap';
 
 const GET_USERS = gql`
     query Users {
@@ -80,120 +80,123 @@ function VitalsForm() {
     if (error) return <p>Error: {error.message}</p>
 
     return (
-        <Container className="mt-4">
-            <h2 className="mb-4 text-center">Enter Patient Vital Signs</h2>
+        <>
+            <Container className="mt-5">
+                <Card className="p-4" style={{ backgroundColor: 'rgba(0, 76, 255, 0)', border: 'none', color: 'white' }}>
+                    <h2 className="mb-4 text-center">Enter Patient Vital Signs</h2>
 
-            <Form onSubmit={handleSubmit}>
-                <Form.Group className="mb-3">
-                    <Form.Label>Select Patient</Form.Label>
-                    <Form.Select
-                        name="userId"
-                        value={vitalSignForm.userId}
-                        onChange={handleChange}
-                        required
-                    >
-                        <option value="" disabled>Select Patient</option>
-                        {patients?.map((patient) => (
-                            <option key={patient.id} value={patient.id}>
-                                {patient.username}
-                            </option>
-                        ))}
-                    </Form.Select>
-                </Form.Group>
-
-                <Form.Group className="mb-3">
-                    <Form.Label>Nurse ID</Form.Label>
-                    <Form.Control
-                        type="text"
-                        name="enteredBy"
-                        value={vitalSignForm.enteredBy}
-                        disabled
-                    />
-                </Form.Group>
-
-                <Row>
-                    <Col md={6}>
+                    <Form onSubmit={handleSubmit}>
                         <Form.Group className="mb-3">
-                            <Form.Label>Temperature (°C)</Form.Label>
+                            <Form.Label>Select Patient</Form.Label>
+                            <Form.Select
+                                name="userId"
+                                value={vitalSignForm.userId}
+                                onChange={handleChange}
+                                required
+                            >
+                                <option value="" disabled>Select Patient</option>
+                                {patients?.map((patient) => (
+                                    <option key={patient.id} value={patient.id}>
+                                        {patient.username}
+                                    </option>
+                                ))}
+                            </Form.Select>
+                        </Form.Group>
+
+                        <Form.Group className="mb-4">
+                            <Form.Label>Nurse Name</Form.Label>
                             <Form.Control
-                                type="number"
-                                name="temperature"
-                                placeholder="Enter temperature"
-                                value={vitalSignForm.temperature}
+                                type="text"
+                                name="enteredBy"
+                                value={localStorage.getItem('username')}
+                                disabled
+                            />
+                        </Form.Group>
+
+                        <Row>
+                            <Col md={6}>
+                                <Form.Group className="mb-3">
+                                    <Form.Label>🌡 Temperature (°C)</Form.Label>
+                                    <Form.Control
+                                        type="number"
+                                        name="temperature"
+                                        placeholder="e.g. 37"
+                                        value={vitalSignForm.temperature}
+                                        onChange={handleChange}
+                                        required
+                                    />
+                                </Form.Group>
+                            </Col>
+                            <Col md={6}>
+                                <Form.Group className="mb-3">
+                                    <Form.Label>💓 Heart Rate (bpm)</Form.Label>
+                                    <Form.Control
+                                        type="number"
+                                        name="heartRate"
+                                        placeholder="e.g. 72"
+                                        value={vitalSignForm.heartRate}
+                                        onChange={handleChange}
+                                        required
+                                    />
+                                </Form.Group>
+                            </Col>
+                        </Row>
+
+                        <Form.Group className="mb-3">
+                            <Form.Label>🩸 Blood Pressure</Form.Label>
+                            <Form.Control
+                                type="text"
+                                name="bloodPressure"
+                                placeholder="e.g. 120/80 mmHg"
+                                value={vitalSignForm.bloodPressure}
                                 onChange={handleChange}
                                 required
                             />
                         </Form.Group>
-                    </Col>
 
-                    <Col md={6}>
-                        <Form.Group className="mb-3">
-                            <Form.Label>Heart Rate (bpm)</Form.Label>
-                            <Form.Control
-                                type="number"
-                                name="heartRate"
-                                placeholder="Enter heart rate"
-                                value={vitalSignForm.heartRate}
-                                onChange={handleChange}
-                                required
-                            />
-                        </Form.Group>
-                    </Col>
-                </Row>
+                        <Row>
+                            <Col md={6}>
+                                <Form.Group className="mb-3">
+                                    <Form.Label>🌬 Respiratory Rate (breaths/min)</Form.Label>
+                                    <Form.Control
+                                        type="number"
+                                        name="respiratoryRate"
+                                        placeholder="e.g. 16"
+                                        value={vitalSignForm.respiratoryRate}
+                                        onChange={handleChange}
+                                        required
+                                    />
+                                </Form.Group>
+                            </Col>
+                            <Col md={6}>
+                                <Form.Group className="mb-3">
+                                    <Form.Label>⚖️ Weight (kg)</Form.Label>
+                                    <Form.Control
+                                        type="number"
+                                        name="weight"
+                                        placeholder="e.g. 70"
+                                        value={vitalSignForm.weight}
+                                        onChange={handleChange}
+                                        required
+                                    />
+                                </Form.Group>
+                            </Col>
+                        </Row>
 
-                <Form.Group className="mb-3">
-                    <Form.Label>Blood Pressure (e.g. 120/80 mmHg)</Form.Label>
-                    <Form.Control
-                        type="text"
-                        name="bloodPressure"
-                        placeholder="Enter blood pressure"
-                        value={vitalSignForm.bloodPressure}
-                        onChange={handleChange}
-                        required
-                    />
-                </Form.Group>
-
-                <Row>
-                    <Col md={6}>
-                        <Form.Group className="mb-3">
-                            <Form.Label>Respiratory Rate (breaths/min)</Form.Label>
-                            <Form.Control
-                                type="number"
-                                name="respiratoryRate"
-                                placeholder="Enter respiratory rate"
-                                value={vitalSignForm.respiratoryRate}
-                                onChange={handleChange}
-                                required
-                            />
-                        </Form.Group>
-                    </Col>
-
-                    <Col md={6}>
-                        <Form.Group className="mb-3">
-                            <Form.Label>Weight (kg)</Form.Label>
-                            <Form.Control
-                                type="number"
-                                name="weight"
-                                placeholder="Enter weight"
-                                value={vitalSignForm.weight}
-                                onChange={handleChange}
-                                required
-                            />
-                        </Form.Group>
-                    </Col>
-                </Row>
-
-                <div className="d-flex gap-2">
-                    <Button type="submit" variant="success">
-                        Submit
-                    </Button>
-                    <Button variant="secondary" onClick={() => navigate('/nurse')}>
-                        Go Back
-                    </Button>
-                </div>
-            </Form>
-        </Container>
+                        <div className="d-flex justify-content-between mt-4">
+                            <Button variant="secondary" onClick={() => navigate('/nurse')}>
+                                ⬅️ Go Back
+                            </Button>
+                            <Button type="submit" variant="success">
+                                ✅ Submit Vitals
+                            </Button>
+                        </div>
+                    </Form>
+                </Card>
+            </Container>
+        </>
     );
+
 }
 
 export default VitalsForm

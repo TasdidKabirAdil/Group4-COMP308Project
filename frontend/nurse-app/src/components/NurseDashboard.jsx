@@ -98,113 +98,124 @@ function NurseDashboard() {
   if (error) return <p>Error: {error.message}</p>;
 
   return (
-    <Container className="mt-4">
-      <h2 className="mb-3 text-center">Nurse Dashboard</h2>
+    <>
+      <Container className="mt-4">
+        <h2 className="mb-4 text-center">🩺 Nurse Dashboard</h2>
 
-      <div className="text-center mb-4">
-        <Card className="mx-auto shadow-sm" style={{ maxWidth: "500px", background: "#f0f8ff" }}>
-          <Card.Body>
-            <Card.Title className="text-primary">Motivational Tip of the Day</Card.Title>
-            <Card.Text>
-              {tipData?.getTodayTip?.message || "No tip sent yet for today."}
+        <Card className="mx-auto mb-4 shadow" style={{ maxWidth: "600px", background: "#e7f4ff" }}>
+          <Card.Body className="text-center">
+            <Card.Title className="text-info fs-4 mb-2">
+              💡 Motivational Tip of the Day
+            </Card.Title>
+            <Card.Text className="text-muted fs-6">
+              {tipData?.getTodayTip?.message || (
+                <>
+                  <em>No tip sent yet for today.</em> <br />
+                  Click below to inspire your patients ✨
+                </>
+              )}
             </Card.Text>
           </Card.Body>
         </Card>
-      </div>
 
-      <div className="d-flex justify-content-center gap-3 mb-4">
-        <Button variant="primary" onClick={handleSendTip}>
-          Send Daily Motivational Tips
-        </Button>
-        <Button variant="success" onClick={() => navigate("/vitals-form")}>
-          Enter Vital Signs for Patients
-        </Button>
-      </div>
+        <div className="d-flex justify-content-center gap-3 mb-5">
+          <Button variant="primary" onClick={handleSendTip}>
+            📤 Send Daily Motivational Tips
+          </Button>
+          <Button variant="success" onClick={() => navigate("/vitals-form")}>
+            ➕ Enter Vital Signs for Patients
+          </Button>
+        </div>
 
-      <Card className="mb-4 shadow-sm">
-        <Card.Header>Patient List</Card.Header>
-        <Card.Body>
-          <Table striped bordered hover responsive>
-            <thead>
-              <tr>
-                <th>Patient Name</th>
-                <th>Clinical Visit Details</th>
-              </tr>
-            </thead>
-            <tbody>
-              {patients?.length > 0 ? (
-                patients.map((patient) => (
-                  <tr key={patient.id}>
-                    <td>{patient.username}</td>
-                    <td>
-                      <Button
-                        variant="outline-primary"
-                        size="sm"
-                        onClick={() => navigate(`/patient-details/${patient.id}`)}
-                      >
-                        View User Details
-                      </Button>
-                    </td>
-                  </tr>
-                ))
-              ) : (
+        {/* Patient List */}
+        <Card className="mb-4 shadow-sm" style={{ backgroundColor: 'rgba(0, 76, 255, 0)', color: 'white', border: 'none'}}>
+          <Card.Header className="fw-semibold fs-5">👩‍⚕️ Patient List</Card.Header>
+          <Card.Body>
+            <Table striped bordered hover responsive>
+              <thead>
                 <tr>
-                  <td colSpan="2" className="text-center">
-                    No patients found
-                  </td>
+                  <th>Patient Name</th>
+                  <th>Clinical Visit Details</th>
                 </tr>
-              )}
-            </tbody>
-          </Table>
-        </Card.Body>
-      </Card>
-
-      <Card className="shadow-sm">
-        <Card.Header>Emergency Alerts</Card.Header>
-        <Card.Body>
-          {emergencyAlertsData?.emergencyAlerts.length === 0 && (
-            <Alert variant="info">No emergency alerts found.</Alert>
-          )}
-          <Table striped bordered hover responsive>
-            <thead>
-              <tr>
-                <th>Patient Name</th>
-                <th>Emergency Alert Message</th>
-                <th>Date and Time</th>
-                <th>Respond</th>
-              </tr>
-            </thead>
-            <tbody>
-              {emergencyAlertsData?.emergencyAlerts.map((alert) => {
-                const patient = userData.users.find((user) => user.id === alert.patientId);
-                return (
-                  <tr key={alert.id}>
-                    <td>{patient ? patient.username : "Unknown Patient"}</td>
-                    <td>{alert.message}</td>
-                    <td>{new Date(alert.timestamp).toLocaleString()}</td>
-                    <td>
-                      {respondedAlerts.includes(alert.id) ||
-                      alert.message === "Help is on the way" ? (
-                        <Button variant="secondary" disabled>
-                          Responded
-                        </Button>
-                      ) : (
+              </thead>
+              <tbody>
+                {patients?.length > 0 ? (
+                  patients.map((patient) => (
+                    <tr key={patient.id}>
+                      <td>{patient.username}</td>
+                      <td>
                         <Button
-                          variant="danger"
-                          onClick={() => handleAlertResponse(alert.id)}
+                          variant="outline-primary"
+                          size="sm"
+                          onClick={() => navigate(`/patient-details/${patient.id}`)}
                         >
-                          Respond
+                          View User Details
                         </Button>
-                      )}
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="2" className="text-center text-muted">
+                      No patients found.
                     </td>
                   </tr>
-                );
-              })}
-            </tbody>
-          </Table>
-        </Card.Body>
-      </Card>
-    </Container>
+                )}
+              </tbody>
+            </Table>
+          </Card.Body>
+        </Card>
+
+        {/* Emergency Alerts */}
+        <Card className="shadow-sm" style={{ backgroundColor: 'rgba(0, 76, 255, 0)', color: 'white', border: 'none'}}>
+          <Card.Header className="fw-semibold fs-5">🚨 Emergency Alerts</Card.Header>
+          <Card.Body>
+            {emergencyAlertsData?.emergencyAlerts.length === 0 && (
+              <Alert variant="info" className="text-center">
+                No emergency alerts found.
+              </Alert>
+            )}
+            <Table striped bordered hover responsive>
+              <thead>
+                <tr>
+                  <th>Patient Name</th>
+                  <th>Emergency Alert Message</th>
+                  <th>Date and Time</th>
+                  <th>Respond</th>
+                </tr>
+              </thead>
+              <tbody>
+                {emergencyAlertsData?.emergencyAlerts.map((alert) => {
+                  const patient = userData.users.find((user) => user.id === alert.patientId);
+                  return (
+                    <tr key={alert.id}>
+                      <td>{patient ? patient.username : "Unknown Patient"}</td>
+                      <td>{alert.message}</td>
+                      <td>{new Date(alert.timestamp).toLocaleString()}</td>
+                      <td>
+                        {respondedAlerts.includes(alert.id) || alert.message === "Help is on the way" ? (
+                          <Button variant="secondary" size="sm" disabled>
+                            Responded
+                          </Button>
+                        ) : (
+                          <Button
+                            variant="danger"
+                            size="sm"
+                            onClick={() => handleAlertResponse(alert.id)}
+                          >
+                            Respond
+                          </Button>
+                        )}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </Table>
+          </Card.Body>
+        </Card>
+      </Container>
+    </>
   );
 }
 

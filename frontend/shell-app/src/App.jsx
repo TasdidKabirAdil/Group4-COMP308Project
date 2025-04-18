@@ -1,5 +1,5 @@
 // shell-app/src/App.jsx
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, useLocation, Route } from "react-router-dom";
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 import Login from 'authApp/Login';
@@ -9,6 +9,7 @@ import NurseDashboard from 'nurseApp/NurseDashboard'
 import VitalsForm from 'nurseApp/VitalsForm';
 import PatientDetails from 'nurseApp/PatientDetails';
 import AppNavbar from './Navbar';
+import './App.css'
 
 const authClient = new ApolloClient({
   uri: 'http://localhost:4001/graphql',
@@ -41,6 +42,27 @@ function AppWrapper() {
   const location = useLocation();
   const hideNavbarPaths = ['/', '/login', '/register'];
   const shouldShowNavbar = !hideNavbarPaths.includes(location.pathname);
+
+  useEffect(() => {
+    const path = location.pathname;
+
+    if (path === "/login" || path === "/") {
+      document.body.style.background = "linear-gradient(to right, #00c6ff,rgb(71, 0, 184)";
+      document.getElementById('root').style.background = ''
+
+    } else if(path === "/register") {
+      document.body.style.background = "linear-gradient(to right, rgb(71, 0, 184), #00c6ff";
+      document.getElementById('root').style.background = ''
+    } else {
+      document.body.style.background = "rgba(75, 147, 236, 0.67)";
+      document.getElementById('root').style.background = 'linear-gradient(to right, #00c6ff, #0072ff'
+    }
+
+    return () => {
+      document.body.style.background = "";
+    };
+  }, [location]);
+
   return (
     <>
       {shouldShowNavbar && <AppNavbar />}
